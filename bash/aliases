@@ -1,0 +1,14 @@
+# system
+alias tu='top -o cpu' #cpu
+alias tm='top -o vsize' #memory
+
+# daily
+alias reload='source ~/.bashrc'
+alias ea='atom ~/bin/dotfiles/bash/aliases'
+alias la='ls -l -a'
+
+# git
+alias g="git status"
+function gg() {
+    git commit -m -a -v "$*"
+}
