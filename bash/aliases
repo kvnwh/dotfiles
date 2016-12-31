@@ -10,5 +10,5 @@ alias la='ls -l -a'
 # git
 alias g="git status"
 function gg() {
-    git commit -m -a -v "$*"
+    git commit -v -a -m "$*"
 }
