@@ -3,12 +3,21 @@ alias tu='top -o cpu' #cpu
 alias tm='top -o vsize' #memory
 
 # daily
-alias reload='source ~/.bashrc'
+alias r='source ~/.bashrc'
 alias ea='atom ~/bin/dotfiles/bash/aliases'
-alias la='ls -l -a'
+alias la='ls -lt -a'
+alias c=clear
+alias vlc='open -n /Applications/VLC.app/'
 
 # git
 alias g="git status"
+alias gp="git push origin"
 function gg() {
+    git add .
     git commit -v -a -m "$*"
 }
+
+
+#docker
+alias d="docker"
+alias dc="docker-compose"
