@@ -8,11 +8,15 @@ alias ea='atom ~/bin/dotfiles/bash/aliases'
 alias la='ls -lt -a'
 alias c=clear
 alias vlc='open -n /Applications/VLC.app/'
+alias agu='sudo apt-get update'
+alias agi='sudo apt-get install'
 
 # git
 alias g="git status"
 alias gp="git push origin"
-function gg() {
+alias gco='git checkout'
+alias gbr='git branch'
+function gc() {
     git add .
     git commit -v -a -m "$*"
 }
@@ -21,3 +25,6 @@ function gg() {
 #docker
 alias d="docker"
 alias dc="docker-compose"
+
+#nginx
+alias n-uptime='ps -p `cat /var/run/nginx.pid` -o etime='
