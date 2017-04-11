@@ -4,7 +4,8 @@ alias tm='top -o vsize' #memory
 
 # daily
 alias r='source ~/.bashrc'
-alias ea='atom ~/bin/dotfiles/bash/aliases'
+alias ea='vi ~/bin/dotfiles/bash/aliases'
+alias ec='vi ~/bin/dotfiles/bash/config'
 alias la='ls -lt -a'
 alias c=clear
 alias vlc='open -n /Applications/VLC.app/'

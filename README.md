@@ -8,3 +8,6 @@ if [ -f ~/bin/dotfiles/bashrc ];then
 fi
 ```
 
+# Unbuntu on Windows Colored Terminal
+ 1. uncomment `force_color_prompt` and comment `unset color_prompt force_color_prompt`
+
