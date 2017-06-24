@@ -7,17 +7,46 @@ alias r='source ~/.bashrc'
 alias ea='atom ~/bin/dotfiles/bash/aliases'
 alias la='ls -lt -a'
 alias c=clear
+
+
+#apps
 alias vlc='open -n /Applications/VLC.app/'
 
 # git
 alias g="git status"
+alias gco="git checkout"
+alias gb="git branch"
 alias gp="git push origin"
-function gg() {
+function gc() {
     git add .
     git commit -v -a -m "$*"
 }
 
+# Git branch in prompt.
+export CLICOLOR=1
+
+export LSCOLORS=ExFxBxDxCxegedabagacad
+
+export PS1="\u@ \[\033[33;1m\]\w\[\033[m\]:\[\033[36m\]\$(parse_git_branch)\[\033[m\]$ "
+
+parse_git_branch() {
+
+git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+
+}
+
+
+#rabbitmq
+alias rbs="rabbitmq-server -detached"
+alias rbc="rabbitmqctl"
 
 #docker
 alias d="docker"
 alias dc="docker-compose"
+
+#java
+function dejava(){
+    sudo rm -fr /Library/Internet\ Plug-Ins/JavaAppletPlugin.plugin
+    sudo rm -fr /Library/PreferencePanes/JavaControlPanel.prefPane
+    sudo rm -fr ~/Library/Application\ Support/Java
+}
