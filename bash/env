@@ -1,2 +1,3 @@
 export PATH=$PATH:~/bin:/usr/local/sbin
 export GOPATH=~/Users/khuang/dev/go
+export DOCKER_HOST=localhost:2375

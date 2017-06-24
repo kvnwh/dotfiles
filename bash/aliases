@@ -11,12 +11,15 @@ alias c=clear
 
 #apps
 alias vlc='open -n /Applications/VLC.app/'
+alias agu='sudo apt-get update'
+alias agi='sudo apt-get install'
 
 # git
 alias g="git status"
 alias gco="git checkout"
 alias gb="git branch"
 alias gp="git push origin"
+
 function gc() {
     git add .
     git commit -v -a -m "$*"
@@ -50,3 +53,6 @@ function dejava(){
     sudo rm -fr /Library/PreferencePanes/JavaControlPanel.prefPane
     sudo rm -fr ~/Library/Application\ Support/Java
 }
+
+#nginx
+alias n-uptime='ps -p `cat /var/run/nginx.pid` -o etime='
