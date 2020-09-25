@@ -18,6 +18,8 @@ alias g="git status"
 alias gp="git push origin"
 alias gco='git checkout'
 alias gbr='git branch'
+alias gg="git pull origin master"
+
 function gc() {
     git add .
     git commit -v -a -m "$*"
@@ -27,6 +29,12 @@ function gc() {
 #docker
 alias d="docker"
 alias dc="docker-compose"
-
+alias dstop="docker stop $(docker ps -aq)"
+function dcleanup() {
+  docker container prune -f
+  docker image prune -f
+  docker network prune -f
+  docker volume prune -f
+}
 #nginx
 alias n-uptime='ps -p `cat /var/run/nginx.pid` -o etime='
