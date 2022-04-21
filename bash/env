@@ -1,3 +1,1 @@
-export PATH=$PATH:~/bin:/usr/local/sbin
-export GOPATH=~/Users/khuang/dev/go
-export DOCKER_HOST=localhost:2375
+export PATH=$PATH:~/bin:/usr/local/sbin:/Users/khuang/dev/kafka_2.12-2.4.1/bin

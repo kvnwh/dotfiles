@@ -4,10 +4,12 @@ alias tm='top -o vsize' #memory
 
 # daily
 alias r='source ~/.bashrc'
-alias ea='atom ~/bin/dotfiles/bash/aliases'
+alias ea='vi ~/bin/dotfiles/bash/aliases'
+alias ee='vi ~/bin/dotfiles/bash/env'
 alias la='ls -lt -a'
 alias c=clear
-
+alias wd='cd ~/dev'
+alias leet='code ~/dev/dotnet/programing-fundamentals'
 
 #apps
 alias vlc='open -n /Applications/VLC.app/'
@@ -15,6 +17,7 @@ alias agu='sudo apt-get update'
 alias agi='sudo apt-get install'
 
 # git
+alias gg="git pull origin"
 alias g="git status"
 alias gco="git checkout"
 alias gb="git branch"
@@ -26,17 +29,17 @@ function gc() {
 }
 
 # Git branch in prompt.
-export CLICOLOR=1
+ export CLICOLOR=1
 
-export LSCOLORS=ExFxBxDxCxegedabagacad
+ export LSCOLORS=ExFxBxDxCxegedabagacad
 
-export PS1="\u@ \[\033[33;1m\]\w\[\033[m\]:\[\033[36m\]\$(parse_git_branch)\[\033[m\]$ "
+# export PS1="\u@ \[\033[33;1m\]\w\[\033[m\]:\[\033[36m\]\$(parse_git_branch)\[\033[m\]$ "
 
-parse_git_branch() {
+ parse_git_branch() {
 
-git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+ git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
 
-}
+ }
 
 
 #rabbitmq
@@ -55,4 +58,12 @@ function dejava(){
 }
 
 #nginx
-alias n-uptime='ps -p `cat /var/run/nginx.pid` -o etime='
+
+# golang
+alias togo='cd ~/go/src/github.com/kvnwh'
+
+#kafka
+alias kt="kafka-topics.sh --zookeeper 127.0.0.1:2181"
+alias kp="kafka-console-producer.sh --broker-list 127.0.0.1:9092 --topic"
+alias kc="kafka-console-consumer.sh --bootstrap-server 127.0.0.1:9092 --topic"
+alias kcg="kafka-consumer-groups.sh --bootstrap-server localhost:9092"
