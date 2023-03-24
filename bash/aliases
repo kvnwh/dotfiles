@@ -3,13 +3,14 @@ alias tu='top -o cpu' #cpu
 alias tm='top -o vsize' #memory
 
 # daily
-alias r='source ~/.bashrc'
+# alias r='source ~/.zshrc'
+alias r='omz reload'
 alias ea='vi ~/bin/dotfiles/bash/aliases'
 alias ee='vi ~/bin/dotfiles/bash/env'
 alias la='ls -lt -a'
 alias c=clear
 alias wd='cd ~/dev'
-alias leet='code ~/dev/dotnet/programing-fundamentals'
+# alias leet='code ~/dev/dotnet/programing-fundamentals'
 
 #apps
 alias vlc='open -n /Applications/VLC.app/'

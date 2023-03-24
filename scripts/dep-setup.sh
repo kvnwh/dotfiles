@@ -351,8 +351,25 @@ try_install_homebrew() {
   fi
 }
 
+# brew install --cask \
+#   alfred \
+#   firefox \
+#   google-chrome \
+#   itsycal \
+#   keepingyouawake \
+#   rectangle \
+#   slack \
+#   zoom \
+#   colordiff \
+#   fzf \
+#   kubectx \
+#   ripgrep \
+#   iterm2 \
+#   lens \
+#   rq
+
 install_packages() {
-  list git jq nvm | map try_brew_install
+  list git jq nvm keepingyouawake rectangle ripgrep | map try_brew_install
   execute brew upgrade
   execute brew cleanup --prune=all
   execute brew doctor
