@@ -5,8 +5,9 @@ alias tm='top -o vsize' #memory
 # daily
 # alias r='source ~/.zshrc'
 alias r='omz reload'
-alias ea='vi ~/bin/dotfiles/bash/aliases'
-alias ee='vi ~/bin/dotfiles/bash/env'
+alias ea='code ~/bin/dotfiles/bash/aliases'
+alias ee='code ~/bin/dotfiles/bash/env'
+alias ez="code ~/.zshrc"
 alias la='ls -lt -a'
 alias c=clear
 alias wd='cd ~/dev'
@@ -18,16 +19,41 @@ alias agu='sudo apt-get update'
 alias agi='sudo apt-get install'
 
 # git
-alias gg="git pull origin"
+alias gg="git pull origin master --rebase"
 alias g="git status"
 alias gco="git checkout"
 alias gb="git branch"
 alias gp="git push origin"
+alias gb="git branch -vv --sort=-committerdate"
+# alias gl-me="git log --author=me ."
 
 function gc() {
     git add .
     git commit -v -a -m "$*"
 }
+
+# delete branches starting with pattern
+function gb-d {
+    pattern=$1
+    git branch --list "$pattern*" | xargs -r git branch -D
+}
+
+function isancestor {
+    if $( git merge-base --is-ancestor $1 $2 ); then
+        echo "$2 already contains $1"
+        # exit 0
+    elif $( git merge-base --is-ancestor $2 $1 ); then
+        echo "$1 already contains $2"
+        # exit 0
+    else
+        echo "$1 and $2 are not related"
+        # exit 1
+    fi
+}
+
+# python
+# export PATH="/usr/local/opt/php@7.4/bin:$PATH"
+# export PATH="/usr/local/opt/php@7.4/sbin:$PATH"
 
 # Git branch in prompt.
  export CLICOLOR=1
@@ -50,6 +76,8 @@ alias rbc="rabbitmqctl"
 #docker
 alias d="docker"
 alias dc="docker-compose"
+alias coli-start="colima start --arch x86_64 --cpu 4 --memory 8 --disk 50"
+alias coli-stop="colima stop"
 
 #java
 function dejava(){
@@ -68,3 +96,8 @@ alias kt="kafka-topics.sh --zookeeper 127.0.0.1:2181"
 alias kp="kafka-console-producer.sh --broker-list 127.0.0.1:9092 --topic"
 alias kc="kafka-console-consumer.sh --bootstrap-server 127.0.0.1:9092 --topic"
 alias kcg="kafka-consumer-groups.sh --bootstrap-server localhost:9092"
+
+
+#tools
+# cancel all printer jobs
+# cancel -a -x
