@@ -1,1 +1,3 @@
 
+# google drive auto-mount
+source ~/bin/dotfiles/scripts/gdrive_mount.sh
