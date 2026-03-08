@@ -8,7 +8,9 @@
 #   ./setup_gdrive.sh
 # =============================================================
 
-set -e
+# REMOVED: set -e
+# Reason: set -e causes the terminal tab to close on any error
+# when this script is sourced from .zshrc. Using return 1 instead.
 
 REMOTE_NAME="gdrive"
 MOUNT_DIR="$HOME/gdrive"
@@ -22,7 +24,9 @@ RCLONE_INSTALL_DIR="/usr/local/bin"
 info()    { echo -e "\033[1;34m[INFO]\033[0m  $*"; }
 success() { echo -e "\033[1;32m[OK]\033[0m    $*"; }
 warn()    { echo -e "\033[1;33m[WARN]\033[0m  $*"; }
-error()   { echo -e "\033[1;31m[ERROR]\033[0m $*"; exit 1; }
+error()   { echo -e "\033[1;31m[ERROR]\033[0m $*"; return 1; }
+# NOTE: uses "return 1" instead of "exit 1" so sourcing from .zshrc
+# doesn't close the terminal tab on error
 
 # -------------------------------------------------------------
 # Detect architecture
@@ -41,7 +45,10 @@ info "google drive auto mounting..."
 # info "Checking for Homebrew..."
 if ! command -v brew &>/dev/null; then
   warn "Homebrew not found. Installing..."
-  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)" || {
+    error "Homebrew installation failed. Please install manually from https://brew.sh"
+    return 1
+  }
 # else
 #   success "Homebrew is installed."
 fi
@@ -67,8 +74,11 @@ fi
 if ! command -v rclone &>/dev/null; then
   info "Installing official rclone binary for $RCLONE_ARCH..."
   TMP_DIR="$(mktemp -d)"
-  cd "$TMP_DIR"
-  curl -fsSL "https://downloads.rclone.org/rclone-current-${RCLONE_ARCH}.zip" -o rclone.zip
+  cd "$TMP_DIR" || return 1
+  curl -fsSL "https://downloads.rclone.org/rclone-current-${RCLONE_ARCH}.zip" -o rclone.zip || {
+    error "Failed to download rclone."
+    return 1
+  }
   unzip -q rclone.zip
   cd rclone-*-osx-*/
   sudo cp rclone "$RCLONE_INSTALL_DIR/rclone"
@@ -87,7 +97,7 @@ fi
 # info "Checking for macFUSE..."
 if ! brew list --cask macfuse &>/dev/null 2>&1; then
   info "Installing macFUSE (may require your password)..."
-  brew install --cask macfuse
+  brew install --cask macfuse || { error "macFUSE install failed."; return 1; }
   echo ""
   warn "============================================="
   warn "ACTION REQUIRED: Approve macFUSE kernel extension"
@@ -100,6 +110,7 @@ if ! brew list --cask macfuse &>/dev/null 2>&1; then
   warn "============================================="
   echo ""
   error "Please approve macFUSE and restart your Mac before continuing."
+  return 1
 # else
 #   success "macFUSE is already installed."
 fi
@@ -113,6 +124,7 @@ if ! ls /Library/Filesystems/ 2>/dev/null | grep -q "fuse\|macfuse"; then
   warn "  2. Restarted your Mac"
   echo ""
   error "Please approve macFUSE in System Settings and restart your Mac, then re-run."
+  return 1
 fi
 # success "macFUSE kernel extension is active."
 
@@ -146,6 +158,7 @@ fi
 # Verify remote was created
 if ! rclone listremotes | grep -q "^${REMOTE_NAME}:"; then
   error "Remote '$REMOTE_NAME' not found after config. Please re-run and complete setup."
+  return 1
 fi
 # success "Remote '$REMOTE_NAME' is configured."
 
@@ -165,6 +178,7 @@ if ! rclone lsd "${REMOTE_NAME}:" --max-depth 1 &>/dev/null; then
 #   success "Successfully connected to Google Drive!"
 # else
   error "Could not connect to Google Drive. Check your credentials with: rclone config"
+  return 1
 fi
 
 # -------------------------------------------------------------
@@ -193,6 +207,7 @@ if mount | grep -q "$MOUNT_DIR"; then
   success "Google Drive mounted at $MOUNT_DIR"
 else
   error "Mount failed. Check logs: $LOG_FILE"
+  return 1
 fi
 
 # # -------------------------------------------------------------
