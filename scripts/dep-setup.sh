@@ -369,7 +369,7 @@ try_install_homebrew() {
 #   rq
 
 install_packages() {
-  list git jq nvm keepingyouawake rectangle ripgrep | map try_brew_install
+  list git jq nvm rectangle maccy ripgrep | map try_brew_install
   execute brew upgrade
   execute brew cleanup --prune=all
   execute brew doctor
